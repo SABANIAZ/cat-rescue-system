@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Rescue Detail | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h2 class="fw-bold">{{ rescue.title }}</h2>
+                            <p class="text-muted mb-1">Priority: <strong>{{ rescue.priority }}</strong></p>
+                            <p class="text-muted mb-0">Status: <strong>{{ rescue.status }}</strong></p>
+                        </div>
+                        {% if rescue.image %}
+                            <img src="{{ rescue.image.url }}" alt="Rescue" class="rounded" style="width: 140px; height: 120px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                    <p class="text-muted">{{ rescue.description }}</p>
+                    <p class="text-muted"><strong>Location:</strong> {{ rescue.location }}</p>
+                    <p class="text-muted"><strong>Urgency:</strong> {{ rescue.urgency_reason }}</p>
+                    <p class="text-muted"><strong>Reported by:</strong> {{ rescue.reporter.username }}</p>
+                    {% if rescue.assigned_volunteer %}
+                    <p class="text-muted"><strong>Volunteer assigned:</strong> {{ rescue.assigned_volunteer.username }}</p>
+                    {% endif %}
+                </div>
+                <div class="card p-4 shadow-sm mt-4">
+                    <h5 class="fw-bold mb-3">Chat about this rescue</h5>
+                  <a href="{% url 'send_message_rescue' rescue.user.id rescue.id %}" class="btn btn-primary mt-3">Chat about this rescue</a>
+                    <div class="mt-4">
+                        {% for message in messages %}
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between">
+                                <strong>{{ message.sender.username }}</strong>
+                                <span class="text-muted small">{{ message.timestamp|date:'M d, Y H:i' }}</span>
+                            </div>
+                            <p class="mb-0">{{ message.message }}</p>
+                        </div>
+                        {% empty %}
+                        <p class="text-muted">No messages yet.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Actions</h5>
+                    {% if request.user == rescue.reporter or request.user == rescue.assigned_volunteer %}
+                    <form method="POST" action="{% url 'update_rescue_status' rescue.id %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Update status</label>
+                            <select class="form-select" name="status">
+                                {% for key, label in rescue.STATUS_CHOICES %}
+                                <option value="{{ key }}" {% if rescue.status == key %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button class="btn btn-primary w-100">Update Status</button>
+                    </form>
+                    {% endif %}
+                    <a href="{% url 'rescue_list' %}" class="btn btn-outline-secondary w-100 mt-3">Back to Rescue List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Donations | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold">Donations</h2>
+                <p class="text-muted">Recent contributions that help rescue cats and keep them healthy.</p>
+            </div>
+            <div class="text-end">
+                <h3 class="fw-bold">PKR {{ total_donations }}</h3>
+                <small class="text-muted">raised so far</small>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for donation in donations %}
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold mb-1">{{ donation.donor_name }}</h5>
+                    <p class="text-muted mb-1">Type: {{ donation.donation_type }}</p>
+                    <p class="text-muted mb-1">Amount: PKR {{ donation.amount }}</p>
+                    <p class="small text-muted">{{ donation.message }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="card p-4 shadow-sm text-center">
+                    <p class="mb-0 text-muted">No donations recorded yet.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

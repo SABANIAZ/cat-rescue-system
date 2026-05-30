@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Adoption Request Sent | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="card shadow-sm p-5 text-center">
+            <h1 class="fw-bold mb-3">Request Sent!</h1>
+            <p class="lead text-muted">Your adoption request for <strong>{{ adoption.cat.name }}</strong> has been received.</p>
+            <p class="text-muted">Our team will review the application and contact you soon at <strong>{{ adoption.email }}</strong>.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary mt-4">Return to Home</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

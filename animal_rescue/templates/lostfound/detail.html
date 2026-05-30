@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Lost & Found Detail | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h2 class="fw-bold">{{ report.report_type }} Report</h2>
+                            <p class="text-muted mb-1">Status: <strong>{{ report.status }}</strong></p>
+                            <p class="text-muted mb-0">Location: {{ report.location }}</p>
+                        </div>
+                        {% if report.image %}
+                        <img src="{{ report.image.url }}" alt="LostFound" class="rounded" style="width: 140px; height: 120px; object-fit: cover;">
+                        {% endif %}
+                    </div>
+                    <p class="text-muted mb-3"><strong>Cat description:</strong> {{ report.cat_description }}</p>
+                    <p class="text-muted mb-3"><strong>Breed:</strong> {{ report.breed }}</p>
+                    <p class="text-muted mb-3"><strong>Color:</strong> {{ report.color }}</p>
+                    <p class="text-muted mb-3"><strong>Contact:</strong> {{ report.contact_phone }} | {{ report.contact_email }}</p>
+                    <p class="text-muted"><strong>Reported by:</strong> {{ report.reporter.username }}</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-4 shadow-sm">
+                    <a href="{% url 'lostfound_list' %}" class="btn btn-outline-secondary w-100 mb-3">Back to Reports</a>
+                    {% if request.user == report.reporter %}
+                        <a href="{% url 'lostfound_resolved' report.id %}" class="btn btn-primary w-100">Mark as Resolved</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

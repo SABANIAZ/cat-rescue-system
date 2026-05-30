@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Adoption Requests | Cat Rescue Admin{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold">Adoption Requests</h2>
+                <p class="text-muted">Review adoption applications and update their status.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            {% for adoption in adoptions %}
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">{{ adoption.cat.name }}</h5>
+                    <p class="text-muted mb-1">Applicant: {{ adoption.name }}</p>
+                    <p class="text-muted mb-1">Email: {{ adoption.email }}</p>
+                    <p class="text-muted mb-1">Status: <strong>{{ adoption.status }}</strong></p>
+                    <a href="{% url 'admin_review_adoption' adoption.id %}" class="stretched-link"></a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="card p-4 shadow-sm text-center">
+                    <p class="mb-0 text-muted">No adoption requests to review at this time.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

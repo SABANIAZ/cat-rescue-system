@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cat Rescue System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #257F74; /* teal primary (darker for contrast) */
+            --brand-secondary: #DFF6F0; /* pale teal */
+            --brand-cta: #39B89E; /* CTA teal */
+            --brand-soft: rgba(57,184,158,0.12);
+            --bg-color: #F7FFFD; /* very light mint */
+            --text-color: #103B34; /* dark teal for text */
+            --muted: #6E9C90;
+            --bg-dark: #063B34; /* deep teal for accents */
+            --header-bg-start: #1F746B;
+            --header-bg-end: #135257;
+            --card-radius: 18px;
+        }
+        html, body {
+            font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+        body {
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(90deg, var(--header-bg-start), var(--header-bg-end));
+            border-bottom: 1px solid rgba(59,47,0,0.06);
+            box-shadow: 0 6px 22px rgba(59,47,0,0.03);
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        .navbar-brand { display:flex; align-items:center; gap:.6rem; }
+        .navbar-brand svg { width:26px; height:26px; display:inline-block; }
+        .navbar-nav .nav-link:hover, .navbar-nav .nav-link:focus {
+            color: var(--brand-cta) !important;
+        }
+        .navbar .navbar-toggler {
+            border-color: rgba(255,255,255,0.12);
+        }
+        .navbar .navbar-toggler-icon {
+            background-image: none;
+            width: 22px;
+            height: 2px;
+            display: inline-block;
+            background: #fff;
+            box-shadow: 0 6px 0 0 #fff, 0 12px 0 0 #fff;
+            border-radius: 2px;
+        }
+        .navbar .btn-cta {
+            background: linear-gradient(135deg, var(--brand-cta), var(--brand-secondary));
+            color: #241d11;
+            font-weight: 700;
+            box-shadow: 0 0.6rem 1.2rem rgba(255,193,7,0.12);
+            border-radius: 10px;
+            border: 1px solid rgba(36,29,17,0.04);
+        }
+        .card {
+            border-radius: var(--card-radius);
+            transition: transform .3s ease, box-shadow .3s ease;
+            box-shadow: 0 .75rem 1.75rem rgba(16,24,40,.06);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1.8rem 3rem rgba(16,24,40,.12);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--brand-cta), var(--brand-primary));
+            border: none;
+            color: #04251F;
+            box-shadow: 0 .6rem 1.2rem rgba(57,184,158,0.12);
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--brand-primary), var(--brand-cta));
+            color: #04251F;
+        }
+        /* Global CTA and outline styles to match refined theme */
+        .btn-cta {
+            background: linear-gradient(135deg, var(--brand-cta), var(--brand-primary));
+            color: #04251F;
+            font-weight: 700;
+            border-radius: 10px;
+            padding: .6rem 1rem;
+            box-shadow: 0 .6rem 1rem rgba(57,184,158,0.10);
+            border: 1px solid rgba(4,37,31,0.04);
+        }
+        .btn-cta:hover { transform: translateY(-2px); }
+
+        .btn-outline-primary {
+            background: transparent;
+            color: var(--bg-dark);
+            border: 1.5px solid rgba(57,184,158,0.22);
+            background-image: linear-gradient(180deg, rgba(247,255,253,0.6), rgba(247,255,253,0.2));
+            border-radius: 10px;
+            font-weight: 700;
+        }
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, var(--brand-secondary), var(--brand-cta));
+            color: #04251F;
+            border-color: transparent;
+        }
+
+        .btn-light {
+            background: rgba(247,255,253,0.95);
+            color: var(--bg-dark);
+            border: 1px solid rgba(4,37,31,0.04);
+            box-shadow: 0 .4rem .8rem rgba(4,37,31,0.04);
+        }
+        .btn-adopt {
+            background: linear-gradient(135deg, var(--brand-cta), var(--brand-primary));
+            color: #04251F;
+            border: none;
+            padding: .55rem .9rem;
+            font-weight: 700;
+            border-radius: 10px;
+            box-shadow: 0 .6rem 1rem rgba(57,184,158,0.12);
+        }
+        .btn-adopt:hover {
+            background: linear-gradient(135deg, var(--brand-secondary), var(--brand-cta));
+            color: #241d11;
+            transform: translateY(-2px);
+        }
+        .section-heading {
+            font-size: clamp(2rem, 2.5vw, 3rem);
+            line-height: 1.05;
+        }
+        h1, .hero-title { font-size: clamp(2.6rem, 5vw, 4.2rem); line-height:1.03; font-weight:700; color:var(--text-color); }
+        h2 { font-size: clamp(1.6rem, 2.4vw, 2rem); font-weight:700; color:var(--text-color); }
+        h3 { font-size: 1.125rem; font-weight:600; }
+        p { font-weight:400; color:var(--text-color); }
+        .navbar-brand span { font-size:1.05rem; font-weight:700; color:#fff; }
+        .footer {
+            background: linear-gradient(180deg, var(--bg-dark), #231a00);
+            color: rgba(255,250,240,0.95);
+            padding: 3rem 0 2rem;
+            border-top-left-radius: 18px;
+            border-top-right-radius: 18px;
+            box-shadow: 0 -10px 30px rgba(35,25,0,0.06);
+        }
+        .footer a {
+            color: rgba(255,250,240,.85);
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #fff7e6;
+        }
+        .footer small {
+            color: rgba(255,250,240,.8);
+        }
+        .hero-title {
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            letter-spacing: -0.04em;
+        }
+        .hero-subtitle {
+            max-width: 700px;
+        }
+        .form-control, .form-select {
+            border-radius: 12px;
+        }
+        .page-section {
+            padding: 4rem 0;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="img"><g fill="none" fill-rule="evenodd"><circle cx="12" cy="12" r="12" fill="var(--brand-cta)"/><path d="M8.2 9.3c-.7-1.2.1-2.7 1.4-3.1 1.3-.4 2.6.3 3.1 1.5.5 1.2-.1 2.6-1.4 3-1.3.4-2.6-.3-3.1-1.4zM15.8 9.3c.7-1.2-.1-2.7-1.4-3.1-1.3-.4-2.6.3-3.1 1.5-.5 1.2.1 2.6 1.4 3 1.3.4 2.6-.3 3.1-1.4zM12 14.5c-2.6 0-4.8 2.2-4.8 4.8h9.6c0-2.6-2.2-4.8-4.8-4.8z" fill="var(--bg-dark)"/></g></svg>
+                <span>Cat Rescue</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'report_rescue' %}">Rescue</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'lostfound_list' %}">Lost & Found</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'donate' %}">Donate</a></li>
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+                <div class="d-flex flex-column align-items-end d-none d-lg-flex text-white-50">
+                    <span class="small">📧 sabaniaz281@gmail.com</span>
+                    <span class="small">📞 0329 9615417</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold text-white">Cat Rescue System</h5>
+                    <p class="text-muted">A centralized platform for rescue, adoption, lost & found, and donations.</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-semibold text-white">Explore</h6>
+                    <ul class="list-unstyled mt-3">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'donate' %}">Donate</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h6 class="fw-semibold text-white">Contact</h6>
+                    <ul class="list-unstyled mt-3">
+                        <li class="mb-2">Email: <a href="mailto:sabaniaz281@gmail.com">sabaniaz281@gmail.com</a></li>
+                        <li>Phone: <a href="tel:03299615417">0329 9615417</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-semibold text-white">Follow</h6>
+                    <ul class="list-unstyled mt-3">
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-top border-white border-opacity-10 pt-4 mt-4 text-center">
+                <small>Made with love for cats • © 2026 Cat Rescue System</small>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

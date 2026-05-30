@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Donation Received | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="card p-5 shadow-sm text-center">
+            <h2 class="fw-bold mb-3">Thank You for Your Support</h2>
+            <p class="lead text-muted">Your donation of <strong>PKR {{ donation.amount }}</strong> has been recorded.</p>
+            <p class="text-muted">We appreciate your support for rescued cats and their care.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary mt-4">Back to Home</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

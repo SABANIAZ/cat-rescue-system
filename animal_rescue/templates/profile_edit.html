@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="fw-bold mb-4">Update Your Profile</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">{{ form.phone.label_tag }}{{ form.phone }}</div>
+                        <div class="mb-3">{{ form.address.label_tag }}{{ form.address }}</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">{{ form.latitude.label_tag }}{{ form.latitude }}</div>
+                            <div class="col-md-6">{{ form.longitude.label_tag }}{{ form.longitude }}</div>
+                        </div>
+                        <div class="mb-3">{{ form.bio.label_tag }}{{ form.bio }}</div>
+                        <div class="mb-3">{{ form.avatar.label_tag }}{{ form.avatar }}</div>
+                        <button type="submit" class="btn btn-primary w-100">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

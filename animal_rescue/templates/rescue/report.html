@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Report Rescue | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="fw-bold mb-4">Report a Rescue</h2>
+                    <p class="text-muted">Submit details of a stray or injured cat so our volunteers can respond quickly.</p>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">{{ form.title.label_tag }}{{ form.title }}</div>
+                        <div class="mb-3">{{ form.description.label_tag }}{{ form.description }}</div>
+                        <div class="mb-3">{{ form.location.label_tag }}{{ form.location }}</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">{{ form.latitude.label_tag }}{{ form.latitude }}</div>
+                            <div class="col-md-6">{{ form.longitude.label_tag }}{{ form.longitude }}</div>
+                        </div>
+                        <div class="mb-3">{{ form.urgency_reason.label_tag }}{{ form.urgency_reason }}</div>
+                        <div class="mb-3">{{ form.image.label_tag }}{{ form.image }}</div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Rescue Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

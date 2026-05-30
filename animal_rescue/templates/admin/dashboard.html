@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Total Cats</h5>
+                    <p class="display-5 mb-0">{{ total_cats }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Total Adoptions</h5>
+                    <p class="display-5 mb-0">{{ total_adoptions }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Pending Adoptions</h5>
+                    <p class="display-5 mb-0">{{ pending_adoptions }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Total Rescues</h5>
+                    <p class="display-5 mb-0">{{ total_rescues }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Active Rescues</h5>
+                    <p class="display-5 mb-0">{{ active_rescues }}</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-4 shadow-sm">
+                    <h5 class="fw-bold">Donations Total</h5>
+                    <p class="display-5 mb-0">PKR {{ total_donations }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="mt-4 d-flex gap-3 flex-wrap">
+            <a href="{% url 'admin_adoptions' %}" class="btn btn-primary">Review Adoptions</a>
+            <a href="{% url 'admin_rescues' %}" class="btn btn-outline-primary">Review Rescues</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

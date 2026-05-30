@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Login | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <div class="card p-4 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="fw-bold mb-4 text-center">Welcome Back</h2>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="mb-3">{{ form.username.label_tag }}{{ form.username }}</div>
+                            <div class="mb-3">{{ form.password.label_tag }}{{ form.password }}</div>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+                        </form>
+                        <p class="text-center mt-3">New to Cat Rescue? <a href="{% url 'register' %}">Register now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

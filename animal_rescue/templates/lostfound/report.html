@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Report Lost/Found | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="fw-bold mb-4">Lost & Found Report</h2>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">{{ form.report_type.label_tag }}{{ form.report_type }}</div>
+                        <div class="mb-3">{{ form.cat_name.label_tag }}{{ form.cat_name }}</div>
+                        <div class="mb-3">{{ form.cat_description.label_tag }}{{ form.cat_description }}</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">{{ form.breed.label_tag }}{{ form.breed }}</div>
+                            <div class="col-md-6">{{ form.color.label_tag }}{{ form.color }}</div>
+                        </div>
+                        <div class="mb-3">{{ form.location.label_tag }}{{ form.location }}</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">{{ form.latitude.label_tag }}{{ form.latitude }}</div>
+                            <div class="col-md-6">{{ form.longitude.label_tag }}{{ form.longitude }}</div>
+                        </div>
+                        <div class="mb-3">{{ form.image.label_tag }}{{ form.image }}</div>
+                        <div class="row g-3">
+                            <div class="col-md-6">{{ form.contact_phone.label_tag }}{{ form.contact_phone }}</div>
+                            <div class="col-md-6">{{ form.contact_email.label_tag }}{{ form.contact_email }}</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

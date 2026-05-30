@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% block title %}About Us | Cat Rescue{% endblock %}
+{% block extra_css %}
+<style>
+    :root{ --card-radius:14px; }
+    .hero { background: linear-gradient(180deg, rgba(37,127,116,0.06), var(--brand-soft)); padding: 4rem 0 2.5rem; border-bottom: 1px solid rgba(3,59,52,0.08); }
+    .hero-title { font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.03em; }
+    .section-content { padding: 3rem 0; }
+    .mission-card { background: var(--brand-soft); border-left: 5px solid var(--brand-primary); border-radius: 12px; padding: 2rem; }
+    .team-member { text-align: center; }
+    .team-member h4 { font-weight: 700; margin-top: 1.5rem; }
+    .team-member p { color: #6c757d; font-size: 0.95rem; }
+    .stats-card { border-radius: 20px; border: 1px solid rgba(3,59,52,0.06); background: #fff; padding: 2rem; transition: transform .3s ease, box-shadow .3s ease; }
+    .stats-card:hover { transform: translateY(-6px); box-shadow: 0 2.2rem 3.5rem rgba(3,59,52,0.06); }
+    .avatar { height: 200px; border-radius: 16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:3.5rem; }
+    .values-list strong { display:block; }
+</style>
+{% endblock %}
+
+{% block content %}
+<header class="hero mb-5">
+    <div class="container text-center">
+        <h1 class="hero-title fw-bold">About Our Rescue Mission</h1>
+        <p class="lead text-muted mt-3">Meet the passionate team behind Cat Rescue and learn our story.</p>
+    </div>
+</header>
+
+<div class="container section-content">
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="fw-bold mb-4">Our Story</h2>
+            <p class="text-muted lead">Saba Niaz and Ayesha Javad founded Cat Rescue with a simple but powerful mission: to rescue abandoned and vulnerable cats, provide them with medical care and love, and find them permanent, caring homes.</p>
+            <p class="text-muted">What started as a small initiative has grown into a recognized rescue organization. We believe every cat deserves a second chance, and we're committed to making that happen through careful rescue, rehabilitation, and adoption support.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="avatar" style="background:linear-gradient(135deg,var(--brand-primary),var(--brand-cta));">🐾</div>
+            <h4 class="mt-3">Rescue</h4>
+            <p class="text-muted mt-2">We identify and rescue cats in distress, providing immediate safety, shelter, and care.</p>
+        </div>
+        <div class="col-md-4">
+            <div class="mission-card h-100">
+                <h4>Rehabilitation</h4>
+                <p class="text-muted mt-2">Medical treatment, nutrition, and love help each cat recover and thrive.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mission-card h-100">
+                <h4>Adoption</h4>
+                <p class="text-muted mt-2">Careful matching and long-term follow-up ensure every adoption succeeds.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="fw-bold mb-4 text-center">Meet Our Team</h2>
+            <div class="row g-5 mt-4">
+                <div class="col-md-6 team-member">
+                    <div class="avatar" style="background:linear-gradient(135deg,var(--brand-primary),var(--bg-dark));">🐾</div>
+                    <h4 class="mt-3">Saba Niaz</h4>
+                    <p>Rescue Coordinator & Founder</p>
+                    <p class="text-muted small mb-0">Saba leads our rescue operations, ensuring every cat receives immediate care and attention. With expertise in animal welfare, she guides field rescues and medical support.</p>
+                </div>
+                <div class="col-md-6 team-member">
+                    <div class="avatar" style="background:linear-gradient(135deg,var(--brand-secondary),var(--brand-primary));">💝</div>
+                    <h4 class="mt-3">Ayesha Javad</h4>
+                    <p>Adoption & Care Lead</p>
+                    <p class="text-muted small mb-0">Ayesha oversees adoption placements and adopter support, ensuring strong matches and lasting, loving homes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card text-center">
+                <h2 class="fw-bold" style="color: var(--brand-primary);">250+</h2>
+                <p class="text-muted mb-0">Cats Rescued</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card text-center">
+                <h2 class="fw-bold" style="color: var(--brand-primary);">180+</h2>
+                <p class="text-muted mb-0">Successful Adoptions</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card text-center">
+                <h2 class="fw-bold" style="color: var(--brand-primary);">50+</h2>
+                <p class="text-muted mb-0">Happy Families</p>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="stats-card text-center">
+                <h2 class="fw-bold" style="color: var(--brand-primary);">24/7</h2>
+                <p class="text-muted mb-0">Care Available</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+            <h2 class="fw-bold mb-4 text-center">Our Values</h2>
+            <ul class="list-unstyled mt-4 values-list">
+                <li class="mb-3 d-flex gap-3 align-items-start">
+                    <span style="color: var(--brand-primary); font-weight: 700; font-size: 1.3rem;">✓</span>
+                    <div>
+                        <strong>Compassion</strong>
+                        <p class="text-muted small mb-0">Every cat is treated with kindness and dignity.</p>
+                    </div>
+                </li>
+                <li class="mb-3 d-flex gap-3 align-items-start">
+                    <span style="color: var(--brand-primary); font-weight: 700; font-size: 1.3rem;">✓</span>
+                    <div>
+                        <strong>Professionalism</strong>
+                        <p class="text-muted small mb-0">We follow best practices in rescue and adoption.</p>
+                    </div>
+                </li>
+                <li class="mb-3 d-flex gap-3 align-items-start">
+                    <span style="color: var(--brand-primary); font-weight: 700; font-size: 1.3rem;">✓</span>
+                    <div>
+                        <strong>Transparency</strong>
+                        <p class="text-muted small mb-0">Open communication with adopters and supporters.</p>
+                    </div>
+                </li>
+                <li class="d-flex gap-3 align-items-start">
+                    <span style="color: var(--brand-primary); font-weight: 700; font-size: 1.3rem;">✓</span>
+                    <div>
+                        <strong>Commitment</strong>
+                        <p class="text-muted small mb-0">Long-term support for every adopted cat.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-lg-8 mx-auto text-center">
+            <h2 class="fw-bold mb-4">Ready to Help?</h2>
+            <p class="text-muted mb-4">Join us in our mission to rescue and rehome cats. Whether by adopting, donating, or volunteering, your support makes a real difference.</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="{% url 'home' %}#availableCats" class="btn btn-primary btn-lg">Browse Adoptable Cats</a>
+                <a href="#contact" class="btn btn-outline-primary btn-lg">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer" id="contact">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <h5 class="fw-bold text-white">Cat Rescue</h5>
+                <p class="text-muted">Helping cats find loving homes with compassion and care.</p>
+            </div>
+            <div class="col-lg-3">
+                <h6 class="fw-semibold text-white">Explore</h6>
+                <ul class="list-unstyled mt-3">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'home' %}#availableCats">Cats</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h6 class="fw-semibold text-white">Get in touch</h6>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2">Email: <a href="mailto:sabaniaz281@gmail.com">sabaniaz281@gmail.com</a></li>
+                    <li>Phone: <a href="tel:03299615417">0329 9615417</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2">
+                <h6 class="fw-semibold text-white">Follow</h6>
+                <ul class="list-unstyled mt-3">
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

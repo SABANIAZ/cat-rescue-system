@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Conversation | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="card p-4 shadow-sm">
+            <h2 class="fw-bold mb-4">Conversation with {{ other_user.username }}</h2>
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div class="mb-3 p-3 rounded {% if message.sender == request.user %}bg-primary text-white ms-auto{% else %}bg-light text-dark{% endif %}" style="max-width: 85%;">
+                        <div class="small text-muted mb-1">{{ message.sender.username }} • {{ message.timestamp|date:'M d, Y H:i' }}</div>
+                        <p class="mb-0">{{ message.message }}</p>
+                    </div>
+                {% empty %}
+                    <p class="text-muted">No messages yet. Start the conversation now.</p>
+                {% endfor %}
+            </div>
+            <a href="{% url 'send_message' other_user.id %}" class="btn btn-primary">Send New Message</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="card p-4 shadow-sm">
+                    <h3 class="fw-bold mb-3">Hello, {{ request.user.username }}</h3>
+                    <p class="text-muted">Manage your rescue reports, adoption requests, appointments, donations, and profile.</p>
+                    <a href="{% url 'profile_edit' %}" class="btn btn-outline-primary w-100 mb-3">Edit Profile</a>
+                    <a href="{% url 'report_rescue' %}" class="btn btn-primary w-100 mb-3">Report Rescue</a>
+                    <a href="{% url 'report_lostfound' %}" class="btn btn-outline-primary w-100">Report Lost/Found</a>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="fw-bold">Adoption Requests</h5>
+                            <p class="display-6 mb-0">{{ adoption_requests.count }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="fw-bold">Rescue Reports</h5>
+                            <p class="display-6 mb-0">{{ rescue_requests.count }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="fw-bold">Appointments</h5>
+                            <p class="display-6 mb-0">{{ appointments.count }}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="fw-bold">Donations</h5>
+                            <p class="display-6 mb-0">{{ donations.count }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-4 shadow-sm mt-4">
+                    <h5 class="fw-bold mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-decoration-none">Browse adoptable cats</a></li>
+                        <li><a href="{% url 'donate' %}" class="text-decoration-none">Make a donation</a></li>
+                        <li><a href="{% url 'lostfound_list' %}" class="text-decoration-none">View lost and found</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

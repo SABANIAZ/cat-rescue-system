@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Adopt {{ cat.name }} | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card shadow-sm p-4">
+                    <h2 class="fw-bold mb-4 text-center">Adopt {{ cat.name }} 🐾</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">{{ form.as_p }}</div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3 fw-bold">Submit Adoption Request</button>
+                    </form>
+                    <a href="{% url 'home' %}" class="btn btn-link w-100 mt-3 text-muted">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

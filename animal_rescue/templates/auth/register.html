@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Register | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card p-4 shadow-sm">
+                    <div class="card-body">
+                        <h2 class="fw-bold mb-4 text-center">Create Your Account</h2>
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="mb-3">{{ form.username.label_tag }}{{ form.username }}</div>
+                            <div class="mb-3">{{ form.email.label_tag }}{{ form.email }}</div>
+                            <div class="mb-3">{{ form.phone.label_tag }}{{ form.phone }}</div>
+                            <div class="mb-3">{{ form.address.label_tag }}{{ form.address }}</div>
+                            <div class="mb-3">{{ form.role.label_tag }}{{ form.role }}</div>
+                            <div class="mb-3">{{ form.password1.label_tag }}{{ form.password1 }}</div>
+                            <div class="mb-3">{{ form.password2.label_tag }}{{ form.password2 }}</div>
+                            <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+                        </form>
+                        <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

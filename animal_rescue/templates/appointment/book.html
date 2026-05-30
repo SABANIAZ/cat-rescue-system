@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Book Appointment | Cat Rescue{% endblock %}
+{% block content %}
+<section class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card p-4 shadow-sm">
+                    <h2 class="fw-bold mb-4">Schedule a Visit for {{ cat.name }}</h2>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.non_field_errors }}
+                        <div class="mb-3">{{ form.scheduled_date.label_tag }}{{ form.scheduled_date }}</div>
+                        <div class="mb-3">{{ form.notes.label_tag }}{{ form.notes }}</div>
+                        <button type="submit" class="btn btn-primary w-100">Confirm Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
