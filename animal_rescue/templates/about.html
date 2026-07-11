@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}About Us | Cat Rescue{% endblock %}
 {% block extra_css %}
-<style>
+<style>3
     :root{ --card-radius:14px; }
     .hero { background: linear-gradient(180deg, rgba(37,127,116,0.06), var(--brand-soft)); padding: 4rem 0 2.5rem; border-bottom: 1px solid rgba(3,59,52,0.08); }
     .hero-title { font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.03em; }
@@ -14,6 +14,13 @@
     .stats-card:hover { transform: translateY(-6px); box-shadow: 0 2.2rem 3.5rem rgba(3,59,52,0.06); }
     .avatar { height: 200px; border-radius: 16px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:3.5rem; }
     .values-list strong { display:block; }
+    .about-cat-card img { height: 220px; object-fit: cover; }
+    .about-cat-card .card-body { padding: 1rem 1rem 1.2rem; }
+    .about-cat-card { cursor: pointer; transition: transform .25s ease, box-shadow .25s ease; }
+    .about-cat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+    .cat-modal-backdrop { background-color: rgba(0,0,0,0.5); }
+    .cat-modal-content { border-radius: 20px; border: none; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+    .cat-modal-img { width: 100%; height: 380px; object-fit: cover; object-position: center; border-radius: 18px 18px 0 0; }
 </style>
 {% endblock %}
 
@@ -77,19 +84,19 @@
     <div class="row g-4 mb-5">
         <div class="col-md-3 col-sm-6">
             <div class="stats-card text-center">
-                <h2 class="fw-bold" style="color: var(--brand-primary);">250+</h2>
+                <h2 class="fw-bold stat-number" data-target="{{ rescued_cats_count|add:100 }}" data-suffix="+" data-floor="100" style="color: var(--brand-primary);">0</h2>
                 <p class="text-muted mb-0">Cats Rescued</p>
             </div>
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="stats-card text-center">
-                <h2 class="fw-bold" style="color: var(--brand-primary);">180+</h2>
+                <h2 class="fw-bold stat-number" data-target="{{ successful_adoptions_count|add:150 }}" data-suffix="+" data-floor="150" style="color: var(--brand-primary);">0</h2>
                 <p class="text-muted mb-0">Successful Adoptions</p>
             </div>
         </div>
         <div class="col-md-3 col-sm-6">
             <div class="stats-card text-center">
-                <h2 class="fw-bold" style="color: var(--brand-primary);">50+</h2>
+                <h2 class="fw-bold stat-number" data-target="{{ happy_families_count|add:200 }}" data-suffix="+" data-floor="200" style="color: var(--brand-primary);">0</h2>
                 <p class="text-muted mb-0">Happy Families</p>
             </div>
         </div>
@@ -100,6 +107,69 @@
             </div>
         </div>
     </div>
+
+    {% if about_cats %}
+    <div class="row mb-5">
+        <div class="col-lg-10 mx-auto">
+            <h2 class="fw-bold mb-4 text-center">Cats in Rescue or Adopted</h2>
+            <div class="row g-4">
+                {% for cat in about_cats %}
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm h-100 about-cat-card" data-bs-toggle="modal" data-bs-target="#aboutCatModal{{ cat.id }}">
+                        {% if cat.image %}
+                        <img src="{{ cat.image.url }}" class="card-img-top" alt="{{ cat.name }}">
+                        {% else %}
+                        <img src="https://placekitten.com/600/400" class="card-img-top" alt="{{ cat.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start gap-3">
+                                <div>
+                                    <h5 class="fw-bold mb-1">{{ cat.name }}</h5>
+                                    <p class="text-muted mb-2">{{ cat.breed }} • {{ cat.age }}</p>
+                                </div>
+                                <span class="badge bg-warning text-dark">{{ cat.status }}</span>
+                            </div>
+                            <p class="text-muted mb-0">{{ cat.description|default:'This cat is part of our rescue or adoption journey.' }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="aboutCatModal{{ cat.id }}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content cat-modal-content">
+                            <button type="button" class="btn-close position-absolute" style="top: 12px; right: 12px; z-index: 10;" data-bs-dismiss="modal" aria-label="Close"></button>
+                            {% if cat.image %}
+                            <img src="{{ cat.image.url }}" class="cat-modal-img" alt="{{ cat.name }}">
+                            {% else %}
+                            <img src="https://placekitten.com/800/400" class="cat-modal-img" alt="{{ cat.name }}">
+                            {% endif %}
+                            <div class="modal-body p-4">
+                                <h4 class="fw-bold mb-2">{{ cat.name }}</h4>
+                                <div class="row mb-3">
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1"><small>Breed</small></p>
+                                        <p class="fw-semibold">{{ cat.breed }}</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-muted mb-1"><small>Age</small></p>
+                                        <p class="fw-semibold">{{ cat.age }}</p>
+                                    </div>
+                                </div>
+                                <p class="text-muted mb-1"><small>Status</small></p>
+                                <p class="mb-3">
+                                    <span class="badge bg-warning text-dark p-2 fs-6">{{ cat.status }}</span>
+                                </p>
+                                <p class="text-muted mb-1"><small>Description</small></p>
+                                <p>{{ cat.description|default:'No detailed description available.' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     <div class="row mb-5">
         <div class="col-lg-8 mx-auto">
@@ -181,4 +251,32 @@
         </div>
     </div>
 </footer>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const counters = document.querySelectorAll('.stat-number');
+        counters.forEach((counter) => {
+            const target = Number(counter.getAttribute('data-target') || 0);
+            const suffix = counter.getAttribute('data-suffix') || '';
+            const floor = Number(counter.getAttribute('data-floor') || 0);
+            const duration = 900;
+            const startTime = performance.now();
+
+            const step = (timestamp) => {
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const current = Math.max(floor, Math.floor(progress * target));
+                counter.textContent = `${current.toLocaleString()}${suffix}`;
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    counter.textContent = `${Math.max(target, floor).toLocaleString()}${suffix}`;
+                }
+            };
+
+            requestAnimationFrame(step);
+        });
+    });
+</script>
 {% endblock %}

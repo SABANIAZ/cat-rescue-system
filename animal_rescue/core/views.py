@@ -10,7 +10,7 @@ from math import radians, sin, cos, sqrt, atan2
 
 from .models import (
     Cat, UserProfile, AdoptionRequest, RescueRequest, 
-    LostFoundReport, Appointment, ChatMessage, Donation
+    LostFoundReport, Appointment, ChatMessage, Donation, HomeBanner
 )
 from .forms import (
     UserRegistrationForm, UserLoginForm, AdoptionForm, RescueRequestForm,
@@ -87,16 +87,31 @@ def home(request):
     cats = Cat.objects.all()
     rescue_count = RescueRequest.objects.filter(status__in=['Rescued', 'Completed']).count()
     adoption_count = AdoptionRequest.objects.filter(status='Completed').count()
+    home_slides = HomeBanner.objects.filter(is_active=True).order_by('order', 'id')
+    home_cats = cats.exclude(status__in=['Adopted', 'Rescue'])
     
     context = {
         'cats': cats,
         'rescue_count': rescue_count,
         'adoption_count': adoption_count,
+        'home_slides': home_slides,
+        'available_cats': home_cats,
     }
     return render(request, 'home.html', context)
 
 def about(request):
-    return render(request, 'about.html')
+    rescued_cats_count = Cat.objects.filter(status='Rescue').count()
+    successful_adoptions_count = Cat.objects.filter(status='Adopted').count()
+    happy_families_count = Cat.objects.filter(status='Adopted').count()
+    about_cats = Cat.objects.filter(status__in=['Adopted', 'Rescue'])
+
+    context = {
+        'rescued_cats_count': rescued_cats_count,
+        'successful_adoptions_count': successful_adoptions_count,
+        'happy_families_count': happy_families_count,
+        'about_cats': about_cats,
+    }
+    return render(request, 'about.html', context)
 
 # ============ DASHBOARD (USER PROFILE) ============
 @login_required(login_url='login')

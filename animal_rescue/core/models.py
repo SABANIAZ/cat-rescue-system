@@ -22,6 +22,22 @@ class Cat(models.Model):
     def __str__(self):
         return self.name
 
+
+class HomeBanner(models.Model):
+    title = models.CharField(max_length=120, blank=True)
+    subtitle = models.CharField(max_length=220, blank=True)
+    image = models.ImageField(upload_to='banners/', blank=True, null=True)
+    cat = models.ForeignKey(Cat, on_delete=models.SET_NULL, null=True, blank=True, related_name='home_banners')
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', 'id']
+
+    def __str__(self):
+        return self.title or f'Banner {self.id}'
+
 # ============ USER PROFILE MODEL (for roles) ============
 class UserProfile(models.Model):
     ROLE_CHOICES = [
